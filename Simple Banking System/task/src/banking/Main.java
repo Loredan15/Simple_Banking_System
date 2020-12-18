@@ -1,6 +1,8 @@
 package banking;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
@@ -13,7 +15,7 @@ public class Main {
   static Map<String, String> database = new HashMap<>();
 
   public static void main(String[] args) {
-    mainMenu();
+  mainMenu();
 //        for (Map.Entry<String, String> entry : database.entrySet()){
 //            System.out.println(entry);
 //        }
@@ -78,7 +80,7 @@ public class Main {
 //      System.out.println("Error: incorrect input");
 //    }
 
-    cardNumber = "4000001" + ThreadLocalRandom.current().nextLong(1_000_000_00,9_999_999_99);
+    cardNumber = generateCardNumber();
     pinCodeNumber = "" + ThreadLocalRandom.current().nextInt(1001, 10000);
 
     System.out.println("Your card has been created");
@@ -145,6 +147,62 @@ public class Main {
         }
       }
     }
+  }
+
+  private static String generateCardNumber() {
+    boolean numberIsUnique = false;
+    String inn = "400000";
+    long generatedNumber;
+    List<Long> intArray = new ArrayList<>();
+    String result = "unknown number";
+
+    while (!numberIsUnique) {
+
+      generatedNumber = ThreadLocalRandom.current().nextLong(1_000_000_00, 9_999_999_99);
+
+      //Костыль какой-то по преобразованию в массив чисел. Наверняка, есть готовый метод
+
+      while (generatedNumber > 0) {
+        long temp = generatedNumber % 10;
+        intArray.add(temp);
+        generatedNumber /= 10;
+      }
+      //===========================конец костыля=========================================
+
+      //Находим контрольную сумму по алгоритму Luhn
+      long sumNumber = 0;
+      long checkSumNumber = 0;
+      long remainderOfTheDivision = 0;
+
+      for (int i = 0; i < intArray.size(); i++) {
+        if (intArray.get(i) % 2 == 0) {
+          intArray.set(i, intArray.get(i) * 2);
+        }
+      }
+      for (int i = 0; i < intArray.size(); i++) {
+        if (intArray.get(i) > 9) {
+          intArray.set(i, intArray.get(i) - 9);
+        }
+        sumNumber += intArray.get(i);
+      }
+      remainderOfTheDivision = sumNumber % 10;
+      checkSumNumber = 10 - remainderOfTheDivision;
+      if (checkSumNumber == 10) {
+        checkSumNumber = 0;
+      }
+      intArray.add(checkSumNumber);
+
+      result = inn;
+      for (int i = 0; i < intArray.size(); i++) {
+        result += intArray.get(i);
+      }
+
+      if (!database.containsKey(result)) {
+        numberIsUnique = true;
+      }
+    }
+
+    return result;
   }
 
 
