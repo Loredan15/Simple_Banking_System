@@ -3,14 +3,14 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/295560/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: Fri, 18 Dec 2020 11:03:07 UTC
+update_date: Mon, 21 Dec 2020 09:58:26 UTC
 stages:
 - id: 515
   step: 8425
   is_completed: true
 - id: 516
   step: 8426
-  is_completed: false
+  is_completed: true
 - id: 517
   step: 8427
   is_completed: false
@@ -25,6 +25,10 @@ topics:
     theory_id: 3614
   - title: IDE
     theory_id: 10996
+  - title: Write, compile, and run
+    theory_id: 3739
+  - title: JVM, JRE, and JDK
+    theory_id: 3499
   - title: What is an exception
     theory_id: 3497
   - title: Hierarchy of exceptions
@@ -37,6 +41,8 @@ topics:
     theory_id: 8977
   - title: Parameters and options
     theory_id: 9746
+  - title: Running programs on your computer
+    theory_id: 3746
   - title: Introduction to Java
     theory_id: 3500
   - title: Basic literals
@@ -105,10 +111,6 @@ topics:
     theory_id: 5819
   - title: EduTools
     theory_id: 5839
-  - title: Write, compile, and run
-    theory_id: 3739
-  - title: JVM, JRE, and JDK
-    theory_id: 3499
   - title: Errors in programs
     theory_id: 3536
   - title: Defining classes
@@ -129,8 +131,6 @@ topics:
     theory_id: 4910
   - title: Inheritance
     theory_id: 3583
-  - title: Running programs on your computer
-    theory_id: 3746
   1:
   - title: Files
     theory_id: 3635

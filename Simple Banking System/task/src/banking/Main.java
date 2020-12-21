@@ -15,6 +15,7 @@ public class Main {
   static Map<String, String> database = new HashMap<>();
 
   public static void main(String[] args) {
+//    generateCardNumber();
   mainMenu();
 //        for (Map.Entry<String, String> entry : database.entrySet()){
 //            System.out.println(entry);
@@ -57,7 +58,7 @@ public class Main {
     System.out.println("0. Exit");
   }
 
-  public static boolean createAccount() {
+  public static void createAccount() {
     boolean result = false;
     String cardNumber = "";
     String pinCodeNumber = "";
@@ -89,8 +90,6 @@ public class Main {
     System.out.println("Your card PIN:");
     System.out.println(pinCodeNumber + "\n");
     database.put(cardNumber, pinCodeNumber);
-
-    return result;
   }
 
   private static boolean checkPinCode(String pinCode) {
@@ -153,14 +152,22 @@ public class Main {
     boolean numberIsUnique = false;
     String inn = "400000";
     long generatedNumber;
+    String generateNumberCopy = "";
     List<Long> intArray = new ArrayList<>();
-    String result = "unknown number";
+    String result = "";
 
     while (!numberIsUnique) {
 
       generatedNumber = ThreadLocalRandom.current().nextLong(1_000_000_00, 9_999_999_99);
+      generateNumberCopy = String.valueOf(generatedNumber);
 
       //Костыль какой-то по преобразованию в массив чисел. Наверняка, есть готовый метод
+      intArray.add(4L);
+      intArray.add(0L);
+      intArray.add(0L);
+      intArray.add(0L);
+      intArray.add(0L);
+      intArray.add(0L);
 
       while (generatedNumber > 0) {
         long temp = generatedNumber % 10;
@@ -174,11 +181,18 @@ public class Main {
       long checkSumNumber = 0;
       long remainderOfTheDivision = 0;
 
-      for (int i = 0; i < intArray.size(); i++) {
-        if (intArray.get(i) % 2 == 0) {
+
+
+//      for (int i = 0; i < intArray.size(); i++) {
+//        if (intArray.get(i) % 2 == 0) {
+//          intArray.set(i, intArray.get(i) * 2);
+//        }
+//      }
+      for (int i = 0; i < intArray.size();) {
           intArray.set(i, intArray.get(i) * 2);
-        }
+          i = i+2;
       }
+
       for (int i = 0; i < intArray.size(); i++) {
         if (intArray.get(i) > 9) {
           intArray.set(i, intArray.get(i) - 9);
@@ -192,10 +206,10 @@ public class Main {
       }
       intArray.add(checkSumNumber);
 
-      result = inn;
-      for (int i = 0; i < intArray.size(); i++) {
-        result += intArray.get(i);
-      }
+//      for (int i = 0; i < intArray.size(); i++) {
+//        result += intArray.get(i);
+//      }
+      result = inn + generateNumberCopy + checkSumNumber;
 
       if (!database.containsKey(result)) {
         numberIsUnique = true;
